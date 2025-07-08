@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Map Bisnis Kesumah Farm</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #ECFDF5; /* emerald-50 */
+        }
+        /* Custom Tailwind Colors */
+        :root {
+            --color-emerald-50: #ECFDF5;
+            --color-emerald-100: #D1FAE5;
+            --color-emerald-200: #A7F3D0;
+            --color-emerald-300: #6EE7B7;
+            --color-emerald-400: #34D399;
+            --color-emerald-500: #10B981;
+            --color-emerald-600: #059669;
+            --color-emerald-700: #047857;
+            --color-emerald-800: #065F46;
+            --color-emerald-900: #064E3B;
+        }
+        .bg-gradient-to-br-custom {
+            background-image: linear-gradient(to bottom right, var(--color-emerald-50), var(--color-emerald-100));
+        }
+        .bg-emerald-700 { background-color: var(--color-emerald-700); }
+        .bg-emerald-600 { background-color: var(--color-emerald-600); }
+        .bg-emerald-500 { background-color: var(--color-emerald-500); }
+        .bg-emerald-50 { background-color: var(--color-emerald-50); }
+        .bg-emerald-800 { background-color: var(--color-emerald-800); }
+        .text-emerald-700 { color: var(--color-emerald-700); }
+        .text-emerald-600 { color: var(--color-emerald-600); }
+        .text-emerald-500 { color: var(--color-emerald-500); }
+        .text-emerald-100 { color: var(--color-emerald-100); }
+
+        /* Page content visibility */
+        .page-content {
+            display: none;
+        }
+        #overview-page {
+            display: block; /* Overview page is visible by default */
+        }
+
+        /* Styles for interactive cards */
+        .mindmap-card-overview, .mindmap-card-detail {
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            border: 2px solid transparent;
+        }
+        .mindmap-card-overview:hover, .mindmap-card-detail:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .mindmap-card-detail.active {
+            border-color: var(--color-emerald-600);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: scale(1.02);
+        }
+        .card-detail-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
+        .card-detail-content.open {
+            max-height: 1000px; /* Sufficiently large value for expansion */
+            opacity: 1;
+            padding-top: 1rem;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-header svg.arrow-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .mindmap-card-detail.active .card-header svg.arrow-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br-custom text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-emerald-700 shadow-lg py-4 px-6 sticky top-0 z-50 rounded-b-xl">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!-- Farm Icon -->
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9.5a2.5 2.5 0 110-5H12m-6 0h4"></path>
+                </svg>
+                <h1 class="text-2xl font-bold text-white">Kesumah Farm</h1>
+            </div>
+            <button id="back-to-overview" class="hidden bg-emerald-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-emerald-600 transition-colors duration-300">
+                &larr; Kembali ke Overview
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container mx-auto px-4 py-8">
+
+        <!-- Overview Page Content -->
+        <section id="overview-page" class="page-content py-12">
+            <h2 class="text-4xl font-extrabold text-emerald-700 text-center mb-12">Mind Map: Rencana Bisnis Kesumah Farm</h2>
+
+            <!-- Central Hub: Kesumah Farm Overview -->
+            <div class="bg-emerald-600 text-white p-8 md:p-12 rounded-3xl shadow-xl text-center max-w-4xl mx-auto mb-12">
+                <h3 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+                    KESUMAH FARM
+                </h3>
+                <p class="text-xl md:text-2xl font-semibold mb-6">
+                    Inovasi Peternakan Domba & Solusi Kandang Terpadu
+                </p>
+                <div class="space-y-4 text-lg">
+                    <p><strong class="font-bold">Visi:</strong> Menjadi pusat layanan penitipan dan _breeding_ domba terkemuka serta penyedia solusi kandang inovatif yang fleksibel di Jawa Barat, dengan komitmen pada keberlanjutan dan kesejahteraan hewan.</p>
+                    <p><strong class="font-bold">Lokasi:</strong> Blok Entuk, Desa Beusi, Kecamatan Gandawesi, Majalengka, Jawa Barat.</p>
+                    <p><strong class="font-bold">Kontak:</strong> WA: 081320865869, Email: kesumahfarm@gmail.com</p>
+                </div>
+            </div>
+
+            <!-- Main Mind Map Overview Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                <!-- Lini Bisnis Utama -->
+                <div class="mindmap-card-overview bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl" data-target-page="lini-bisnis-detail">
+                    <h3 class="text-2xl font-bold text-emerald-700 flex items-center space-x-3">
+                        <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-1.04-8.255-2.745M21 13.255v2.355a2 2 0 01-2 2H5a2 2 0 01-2-2v-2.355m18 0A2.99 2.99 0 0018 10H6a2.99 2.99 0 00-3 3.255m18 0A2.99 2.99 0 0018 10H6a2.99 2.99 0 00-3 3.255"></path></svg>
+                        <span>1. Lini Bisnis Utama</span>
+                    </h3>
+                    <p class="text-gray-600 mt-2">Layanan penitipan, produksi kandang, _breeding_, produk sampingan.</p>
+                </div>
+
+                <!-- Strategi Bisnis & Pemasaran -->
+                <div class="mindmap-card-overview bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl" data-target-page="strategi-bisnis-detail">
+                    <h3 class="text-2xl font-bold text-emerald-700 flex items-center space-x-3">
+                        <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-1.25-3M15 10V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v5M12 14v-4m0 0l-3 3m3-3l3 3"></path></svg>
+                        <span>2. Strategi Bisnis & Pemasaran</span>
+                    </h3>
+                    <p class="text-gray-600 mt-2">Analisis pasar, USP, pemasaran digital & _offline_, strategi harga.</p>
+                </div>
+
+                <!-- Manajemen & Operasional -->
+                <div class="mindmap-card-overview bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl" data-target-page="manajemen-operasional-detail">
+                    <h3 class="text-2xl font-bold text-emerald-700 flex items-center space-x-3">
+                        <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <span>3. Manajemen & Operasional</span>
+                    </h3>
+                    <p class="text-gray-600 mt-2">Struktur tim, SDM, teknologi, pengelolaan limbah.</p>
+                </div>
+
+                <!-- Rencana Keuangan -->
+                <div class="mindmap-card-overview bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl" data-target-page="rencana-keuangan-detail">
+                    <h3 class="text-2xl font-bold text-emerald-700 flex items-center space-x-3">
+                        <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9.5a2.5 2.5 0 110-5H12m-6 0h4"></path></svg>
+                        <span>4. Rencana Keuangan</span>
+                    </h3>
+                    <p class="text-gray-600 mt-2">Estimasi biaya, proyeksi pendapatan, BEP, pendanaan.</p>
+                </div>
+
+                <!-- Manajemen Risiko & Rencana Kontingensi -->
+                <div class="mindmap-card-overview bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl" data-target-page="manajemen-risiko-detail">
+                    <h3 class="text-2xl font-bold text-emerald-700 flex items-center space-x-3">
+                        <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <span>5. Manajemen Risiko & Rencana Kontingensi</span>
+                    </h3>
+                    <p class="text-gray-600 mt-2">Risiko kesehatan, permintaan, biaya, _breeding_, _cash flow_.</p>
+                </div>
+
+                <!-- Rencana Pengembangan & Skalabilitas -->
+                <div class="mindmap-card-overview bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl" data-target-page="rencana-pengembangan-detail">
+                    <h3 class="text-2xl font-bold text-emerald-700 flex items-center space-x-3">
+                        <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-1 13a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v14z"></path></svg>
+                        <span>6. Rencana Pengembangan & Skalabilitas</span>
+                    </h3>
+                    <p class="text-gray-600 mt-2">Fase 1 (Fondasi), Fase 2 (Pertumbuhan), Fase 3 (Ekspansi).</p>
+                </div>
+
+                <!-- Manajemen Hubungan Pelanggan (CRM) & Pengembangan Komunitas -->
+                <div class="mindmap-card-overview bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl" data-target-page="crm-komunitas-detail">
+                    <h3 class="text-2xl font-bold text-emerald-700 flex items-center space-x-3">
+                        <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2v-2a3 3 0 015.356-1.857M17 20v-2c0-.134-.01-.265-.029-.395M12 12V7m0 5h8m-8 0H4"></path></svg>
+                        <span>7. CRM & Pengembangan Komunitas</span>
+                    </h3>
+                    <p class="text-gray-600 mt-2">Sistem CRM, program loyalitas, komunitas aktif.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Detail Pages for Each Main Node -->
+
+        <!-- 1. Lini Bisnis Utama Detail Page -->
+        <section id="lini-bisnis-detail" class="page-content py-12">
+            <h2 class="text-4xl font-extrabold text-emerald-700 text-center mb-12">1. Lini Bisnis Utama</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Layanan Penitipan Domba -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1H11m-4 0h7a2 2 0 002-2v-7M7 12h4"></path></svg>
+                            <span>Layanan Penitipan Domba</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Kesumah Farm menyediakan fasilitas penitipan domba yang aman, bersih, dan nyaman. Layanan ini mencakup pakan berkualitas, air minum bersih, dan perawatan kesehatan dasar rutin. Kami juga menyediakan laporan digital berkala (foto/video/teks) langsung ke pemilik untuk transparansi penuh. Tersedia untuk penitipan jangka pendek maupun jangka panjang.</p>
+                        <p class="text-gray-700 mt-2">Bagi pemilik yang ingin menjual domba titipannya, Kesumah Farm dapat memfasilitasi proses penjualan dengan membantu memasarkan domba ke jaringan pembeli kami, dengan skema komisi yang transparan.</p>
+                        <img src="https://placehold.co/400x250/D1FAE5/065F46?text=Penitipan+Domba" alt="Penitipan Domba" class="rounded-lg shadow-md mt-4 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x250/D1FAE5/065F46?text=Gambar+Tidak+Tersedia';">
+                    </div>
+                </div>
+                <!-- Produksi & Penjualan Kandang Portable -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            <span>Produksi & Penjualan Kandang _Portable_</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Kesumah Farm menghadirkan solusi kandang modern yang fleksibel dan efisien. Kandang _portable_ kami dirancang untuk kemudahan perakitan dan pembongkaran, menjadikannya pilihan ideal bagi peternak dengan ruang terbatas atau kebutuhan musiman. Menggunakan material ringan namun kuat seperti baja ringan, PVC tebal, atau bambu/kayu olahan, dengan desain lantai panggung untuk kebersihan optimal. Tersedia dalam berbagai ukuran (1-2 ekor, 5 ekor, 10 ekor) dan kustomisasi.</p>
+                        <img src="https://placehold.co/400x250/D1FAE5/065F46?text=Kandang+Portable" alt="Kandang Portable" class="rounded-lg shadow-md mt-4 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x250/D1FAE5/065F46?text=Gambar+Tidak+Tersedia';">
+                    </div>
+                </div>
+                <!-- Sistem Breeding Domba -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path></svg>
+                            <span>Sistem _Breeding_ Domba</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Kesumah Farm berkomitmen pada peningkatan kualitas genetik domba melalui program _breeding_ terencana. Kami fokus menghasilkan bibit domba unggul yang sehat, produktif, dan adaptif. Ini mencakup seleksi indukan jantan dan betina terbaik, manajemen reproduksi yang efisien, perawatan intensif untuk anak domba sejak lahir, serta pencatatan silsilah dan data performa yang lengkap.</p>
+                        <img src="https://placehold.co/400x250/D1FAE5/065F46?text=Domba+Breeding" alt="Domba Breeding" class="rounded-lg shadow-md mt-4 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x250/D1FAE5/065F46?text=Gambar+Tidak+Tersedia';">
+                    </div>
+                </div>
+                <!-- Produk Sampingan -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H3v-3h12.263a2 2 0 001.789-2.894l-3.5-7A2 2 0 0014 10zM2 10h2.764a2 2 0 001.789-2.894l-3.5-7A2 2 0 002 10z"></path></svg>
+                            <span>Produk Sampingan</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Sebagai bagian dari komitmen keberlanjutan, Kesumah Farm mengolah limbah kotoran domba dan sisa biomassa menjadi pupuk organik berkualitas tinggi. Pupuk ini kaya nutrisi esensial untuk pertumbuhan tanaman, cocok untuk pertanian organik dan kebun rumah, serta tersedia dalam kemasan praktis.</p>
+                        <img src="https://placehold.co/400x250/D1FAE5/065F46?text=Pupuk+Organik" alt="Pupuk Organik" class="rounded-lg shadow-md mt-4 w-full h-auto object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x250/D1FAE5/065F46?text=Gambar+Tidak+Tersedia';">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Strategi Bisnis & Pemasaran Detail Page -->
+        <section id="strategi-bisnis-detail" class="page-content py-12">
+            <h2 class="text-4xl font-extrabold text-emerald-700 text-center mb-12">2. Strategi Bisnis & Pemasaran</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Analisis Pasar & USP -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-1.25-3M15 10V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v5M12 14v-4m0 0l-3 3m3-3l3 3"></path></svg>
+                            <span>Analisis Pasar & USP</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Kami menganalisis kompetitor (peternak tradisional, peternak besar, produsen kandang permanen) untuk mengidentifikasi keunggulan kompetitif kami. USP Kesumah Farm meliputi fasilitas modern & bersih, perawatan transparan berbasis teknologi, kandang _portable_ inovatif, sistem _breeding_ domba unggul, serta layanan terintegrasi yang komprehensif.</p>
+                    </div>
+                </div>
+                <!-- Pemasaran Digital -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            <span>Pemasaran Digital</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Kami akan memanfaatkan media sosial (@KesumahFarm di FB/IG) untuk konten visual fasilitas, perawatan domba, testimoni, dan demo produk. Aktif di grup komunitas _online_ (WA/FB), optimasi Google My Business, dan publikasi konten edukatif (tips perawatan, panduan kandang). _E-commerce_ sederhana (Tokopedia/Shopee) akan dipertimbangkan untuk penjualan kandang.</p>
+                    </div>
+                </div>
+                <!-- Pemasaran Offline & Kemitraan -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2v-2a3 3 0 015.356-1.857M17 20v-2c0-.134-.01-.265-.029-.395M12 12V7m0 5h8m-8 0H4"></path></path></svg>
+                            <span>Pemasaran _Offline_ & Kemitraan</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Membangun jaringan lokal dengan toko pakan, penjual hewan, petani, dan toko bangunan. Partisipasi aktif dalam pameran hewan, bazar kurban/akikah, dan event UMKM. Kemitraan strategis dengan panitia kurban masjid/lembaga, katering akikah, dan peternak lain untuk penjualan bibit.</p>
+                    </div>
+                </div>
+                <!-- Strategi Harga -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V5m0 14v-2.5M9 11h6m-6 0H6m6 0h2m-2 0V5m0 14v-2.5M9 11h6m-6 0H6m6 0h2"></path></svg>
+                            <span>Strategi Harga</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Harga kompetitif untuk layanan penitipan (per hari/minggu/bulan, variasi layanan). Kandang _portable_ dengan harga kompetitif berdasarkan kualitas, kemudahan, dan daya tahan, serta paket _bundling_. Harga domba (_breeding_/penjualan) disesuaikan dengan kualitas genetik, usia, berat, dan kondisi pasar. Pupuk organik dengan harga kompetitif sesuai pasar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Manajemen & Operasional Detail Page -->
+        <section id="manajemen-operasional-detail" class="page-content py-12">
+            <h2 class="text-4xl font-extrabold text-emerald-700 text-center mb-12">3. Manajemen & Operasional</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Struktur Organisasi -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2v-2a3 3 0 015.356-1.857M17 20v-2c0-.134-.01-.265-.029-.395M12 12V7m0 5h8m-8 0H4"></path></svg>
+                            <span>Struktur Organisasi</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Pada tahap awal, struktur organisasi Kesumah Farm terdiri dari Manajer Peternakan (Pemilik) yang bertanggung jawab atas perencanaan strategis, keuangan, pemasaran, dan _supervisi_ umum. Didukung oleh 1-2 Staf Lapangan yang bertugas melakukan perawatan harian domba, menjaga kebersihan kandang, membantu proses produksi kandang, dan pencatatan data dasar.</p>
+                    </div>
+                </div>
+                <!-- Kualifikasi & Pengembangan SDM -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path></svg>
+                            <span>Kualifikasi & Pengembangan SDM</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Manajer harus memiliki kemampuan komunikasi, operasional, akuntansi dasar, pengetahuan teknis peternakan (_breeding_ & kandang), dan melek teknologi. Staf lapangan diharapkan pekerja keras, bertanggung jawab, menyukai hewan, memiliki dasar pertukangan, dan bersedia dilatih dalam penggunaan aplikasi digital sederhana serta manajemen dasar _breeding_. Pelatihan rutin akan diberikan untuk meningkatkan kompetensi tim.</p>
+                    </div>
+                </div>
+                <!-- Sistem Informasi & Teknologi -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            <span>Sistem Informasi & Teknologi</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Penerapan teknologi tepat guna akan fokus pada pencatatan digital (menggunakan Google Sheets atau aplikasi CRM/manajemen peternakan sederhana) untuk data hewan (silsilah, riwayat kesehatan, _breeding_), inventaris, dan keuangan. WhatsApp Business akan digunakan untuk komunikasi efektif dengan pelanggan dan pelaporan digital. CCTV (opsional) dapat dipasang untuk pemantauan keamanan dan observasi perilaku hewan di area sensitif.</p>
+                    </div>
+                </div>
+                <!-- Pengelolaan Limbah & Biosekuriti -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21H3v-3h12.263a2 2 0 001.789-2.894l-3.5-7A2 2 0 0014 10zM2 10h2.764a2 2 0 001.789-2.894l-3.5-7A2 2 0 002 10z"></path></svg>
+                            <span>Pengelolaan Limbah & Biosekuriti</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Kami menerapkan pendekatan _zero waste_ dengan mengolah kotoran domba menjadi pupuk organik berkualitas tinggi dan mendaur ulang sisa material produksi kandang. Protokol biosekuriti ketat (disinfeksi rutin, kontrol akses, karantina domba baru, pemisahan domba sakit) akan diterapkan untuk mencegah penyebaran penyakit dan menjaga kesehatan seluruh ternak.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Rencana Keuangan Detail Page -->
+        <section id="rencana-keuangan-detail" class="page-content py-12">
+            <h2 class="text-4xl font-extrabold text-emerald-700 text-center mb-12">4. Rencana Keuangan</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Estimasi Biaya Investasi Awal -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9.5a2.5 2.5 0 110-5H12m-6 0h4"></path></svg>
+                            <span>Estimasi Biaya Investasi Awal</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Estimasi biaya investasi awal berkisar antara Rp 45.000.000 hingga Rp 80.000.000. Angka ini mencakup sewa/pembelian lahan, pembangunan kandang penitipan dan _breeding_, peralatan peternakan dasar (alat kebersihan, timbangan, alat medis), peralatan produksi kandang _portable_, teknologi awal (smartphone, komputer), perizinan usaha, dan akuisisi indukan domba awal untuk program _breeding_.</p>
+                    </div>
+                </div>
+                <!-- Estimasi Biaya Operasional Bulanan -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V5m0 14v-2.5M9 11h6m-6 0H6m6 0h2m-2 0V5m0 14v-2.5M9 11h6m-6 0H6m6 0h2"></path></svg>
+                            <span>Estimasi Biaya Operasional Bulanan</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Estimasi biaya operasional bulanan berkisar antara Rp 10.000.000 hingga Rp 20.000.000. Biaya ini meliputi pakan dan suplemen (termasuk untuk indukan dan anakan), kesehatan hewan (vitamin, obat-obatan), gaji tenaga lapangan, listrik & air, bahan baku kandang _portable_, biaya pemasaran digital, dan biaya tak terduga. Angka ini akan bervariasi tergantung skala operasional dan program _breeding_.</p>
+                    </div>
+                </div>
+                <!-- Proyeksi Pendapatan Bulanan & Grafik -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl col-span-full">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
+                            <span>Proyeksi Pendapatan Bulanan</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2 mb-4">Proyeksi pendapatan awal diperkirakan antara Rp 25.000.000 hingga Rp 35.000.000 per bulan. Pendapatan ini berasal dari layanan penitipan domba, penjualan kandang _portable_, penjualan domba (baik hasil _breeding_ maupun domba titipan), dan penjualan pupuk organik. Terdapat potensi peningkatan signifikan seiring pertumbuhan program _breeding_ dan skala penjualan domba sendiri.</p>
+                        <h5 class="text-lg font-semibold text-gray-800 mb-3">Kontribusi Pendapatan (Estimasi)</h5>
+                        <!-- Simple SVG Bar Chart for Financial Projections -->
+                        <div class="w-full h-48 bg-gray-50 rounded-lg p-4 flex items-end justify-around shadow-inner">
+                            <!-- Bar 1: Penitipan -->
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-emerald-500 rounded-t-lg" style="height: 70%;"></div>
+                                <span class="text-xs text-gray-600 mt-1">Penitipan</span>
+                            </div>
+                            <!-- Bar 2: Kandang -->
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-emerald-600 rounded-t-lg" style="height: 50%;"></div>
+                                <span class="text-xs text-gray-600 mt-1">Kandang</span>
+                            </div>
+                            <!-- Bar 3: Breeding/Jual Domba -->
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-emerald-700 rounded-t-lg" style="height: 90%;"></div>
+                                <span class="text-xs text-gray-600 mt-1">Jual Domba</span>
+                            </div>
+                            <!-- Bar 4: Pupuk -->
+                            <div class="flex flex-col items-center">
+                                <div class="w-8 bg-emerald-800 rounded-t-lg" style="height: 30%;"></div>
+                                <span class="text-xs text-gray-600 mt-1">Pupuk</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 text-sm italic mt-4">
+                            Grafik ini menunjukkan estimasi kontribusi pendapatan dari setiap lini bisnis.
+                        </p>
+                    </div>
+                </div>
+                <!-- Analisis Titik Impas (BEP) -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H1m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>Analisis Titik Impas (BEP)</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Dengan diversifikasi sumber pendapatan dari penitipan, penjualan kandang, _breeding_, dan pupuk, Kesumah Farm diharapkan dapat mencapai Titik Impas (Break-Even Point) dalam waktu yang relatif cepat, yaitu antara 6 hingga 12 bulan sejak operasional penuh dimulai.</p>
+                    </div>
+                </div>
+                <!-- Strategi Pendanaan -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V5m0 14v-2.5M9 11h6m-6 0H6m6 0h2m-2 0V5m0 14v-2.5M9 11h6m-6 0H6m6 0h2"></path></svg>
+                            <span>Strategi Pendanaan</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Pendanaan awal akan berasal dari modal pribadi. Setelah operasional berjalan dan keuntungan mulai terakumulasi, keuntungan tersebut akan direinvestasikan untuk ekspansi. Potensi pinjaman usaha mikro atau Kredit Usaha Rakyat (KUR) akan dieksplorasi di fase pengembangan lebih lanjut untuk mendukung pertumbuhan yang lebih besar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Manajemen Risiko & Rencana Kontingensi Detail Page -->
+        <section id="manajemen-risiko-detail" class="page-content py-12">
+            <h2 class="text-4xl font-extrabold text-emerald-700 text-center mb-12">5. Manajemen Risiko & Rencana Kontingensi</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Kesehatan Hewan -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            <span>Kesehatan Hewan</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Risiko utama adalah wabah penyakit atau kematian ternak. **Rencana Kontingensi:** Kami akan menerapkan protokol biosekuriti ketat, vaksinasi rutin, isolasi domba sakit, serta menjalin kerjasama erat dengan dokter hewan. Asuransi ternak akan dipertimbangkan di fase lanjut untuk mitigasi risiko finansial.</p>
+                    </div>
+                </div>
+                <!-- Fluktuasi Permintaan -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"></path></svg>
+                            <span>Fluktuasi Permintaan</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Risiko penurunan okupansi penitipan atau penjualan produk. **Rencana Kontingensi:** Kami akan melakukan pemasaran agresif, menawarkan promo menarik, dan terus melakukan diversifikasi target pasar untuk menjaga permintaan tetap stabil.</p>
+                    </div>
+                </div>
+                <!-- Kenaikan Harga Bahan Baku -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H1m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>Kenaikan Harga Bahan Baku</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Risiko peningkatan harga pakan atau material kandang. **Rencana Kontingensi:** Kami akan mencari pemasok alternatif, menjajaki budidaya pakan mandiri, dan melakukan efisiensi desain kandang untuk menekan biaya produksi.</p>
+                    </div>
+                </div>
+                <!-- Kegagalan Breeding -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path></svg>
+                            <span>Kegagalan _Breeding_</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Risiko angka kelahiran rendah atau kematian anakan. **Rencana Kontingensi:** Kami akan melakukan evaluasi program _breeding_ secara berkala, berkonsultasi dengan ahli genetik/reproduksi, dan menerapkan protokol perawatan yang lebih intensif untuk indukan dan anakan.</p>
+                    </div>
+                </div>
+                <!-- Cash Flow Negatif -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V5m0 14v-2.5M9 11h6m-6 0H6m6 0h2m-2 0V5m0 14v-2.5M9 11h6m-6 0H6m6 0h2"></path></svg>
+                            <span>_Cash Flow_ Negatif</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Risiko ketidakstabilan arus kas. **Rencana Kontingensi:** Kami akan menerapkan kontrol biaya yang ketat, melakukan negosiasi pembayaran dengan pemasok, dan siap mencari pendanaan jangka pendek jika diperlukan untuk menjaga likuiditas operasional.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Rencana Pengembangan & Skalabilitas Detail Page -->
+        <section id="rencana-pengembangan-detail" class="page-content py-12">
+            <h2 class="text-4xl font-extrabold text-emerald-700 text-center mb-12">6. Rencana Pengembangan & Skalabilitas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Fase 1 (Bulan 1-12) -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-1 13a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v14z"></path></svg>
+                            <span>Fase 1 (Bulan 1-12): Fondasi & Validasi Pasar</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Fokus utama pada fase ini adalah stabilisasi operasional layanan penitipan domba dan produksi kandang _portable_. Kami bertujuan untuk membangun basis pelanggan yang kuat, mengoptimalkan efisiensi operasional, mengumpulkan modal awal, dan mempersiapkan infrastruktur minimal untuk program _breeding_ (studi pasar & identifikasi indukan unggul).</p>
+                    </div>
+                </div>
+                <!-- Fase 2 (Bulan 13-24) -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.747 0-3.332.477-4.5 1.253"></path></svg>
+                            <span>Fase 2 (Bulan 13-24): Pertumbuhan & Pengembangan _Breeding_</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Pada fase ini, fokus akan beralih ke penskalaan program _breeding_ domba dan peningkatan kapasitas produksi kandang. Kegiatan meliputi akuisisi lebih banyak indukan, implementasi program _breeding_ yang lebih intensif, perluasan area kandang khusus _breeding_, dan eksplorasi budidaya pakan mandiri untuk mendukung populasi domba yang meningkat.</p>
+                    </div>
+                </div>
+                <!-- Fase 3 (Bulan 25+) -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2v-2a3 3 0 015.356-1.857M17 20v-2c0-.134-.01-.265-.029-.395M12 12V7m0 5h8m-8 0H4"></path></svg>
+                            <span>Fase 3 (Bulan 25+): Diversifikasi & Ekspansi Regional</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Pada fase ini, Kesumah Farm akan berupaya menjadi peternakan domba terintegrasi dan pusat solusi kandang yang diakui di Jawa Barat. Kegiatan meliputi penjualan domba siap potong skala besar, pengembangan produk olahan domba (di masa depan), investasi pada teknologi _smart farming_ & IoT, serta ekspansi pasar kandang ke wilayah regional yang lebih luas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. CRM & Pengembangan Komunitas Detail Page -->
+        <section id="crm-komunitas-detail" class="page-content py-12">
+            <h2 class="text-4xl font-extrabold text-emerald-700 text-center mb-12">7. CRM & Pengembangan Komunitas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Sistem CRM Sederhana -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2v-2a3 3 0 015.356-1.857M17 20v-2c0-.134-.01-.265-.029-.395M12 12V7m0 5h8m-8 0H4"></path></svg>
+                            <span>Sistem CRM Sederhana</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Kami akan mengimplementasikan sistem CRM sederhana (misalnya, Google Sheets yang terstruktur atau aplikasi CRM gratis) untuk melacak data pelanggan, riwayat layanan/pembelian, dan preferensi. Ini akan membantu dalam membangun hubungan yang personal dan efektif, serta mengelola _feedback loop_ untuk perbaikan berkelanjutan.</p>
+                    </div>
+                </div>
+                <!-- Program Loyalitas -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            <span>Program Loyalitas</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Untuk mendorong retensi dan _repeat business_, kami akan memperkenalkan program loyalitas. Ini bisa berupa diskon _tiered_ untuk volume/durasi penitipan yang lebih besar atau pembelian berulang, program referensi dengan insentif menarik, dan potensi keanggotaan premium yang menawarkan benefit eksklusif (misalnya, prioritas penitipan atau akses lebih awal ke bibit domba unggul).</p>
+                    </div>
+                </div>
+                <!-- Komunitas Aktif -->
+                <div class="mindmap-card-detail bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl">
+                    <div class="card-header">
+                        <h4 class="text-xl font-bold text-gray-900 flex items-center space-x-2">
+                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2v-2a3 3 0 015.356-1.857M17 20v-2c0-.134-.01-.265-.029-.395M12 12V7m0 5h8m-8 0H4"></path></svg>
+                            <span>Komunitas Aktif</span>
+                        </h4>
+                        <svg class="w-5 h-5 text-gray-600 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="card-detail-content">
+                        <p class="text-gray-700 mt-2">Kami akan membangun komunitas yang kuat melalui grup eksklusif (WhatsApp/Telegram) bagi pelanggan untuk berbagi _update_ internal, tips edukatif mendalam, dan diskusi. Secara berkala, kami akan mengadakan _gathering_ atau _workshop_ di Kesumah Farm untuk memperkuat hubungan personal dan berbagi pengetahuan. Program kontes atau apresiasi juga akan diadakan untuk pelanggan paling loyal.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-emerald-800 text-emerald-100 py-8 mt-12 rounded-t-xl">
+        <div class="container mx-auto text-center text-sm">
+            <p>&copy; <span id="current-year"></span> Kesumah Farm. Semua Hak Dilindungi.</p>
+            <p>Inovasi Peternakan Domba & Solusi Kandang Terpadu.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Page Navigation and Card Interactivity -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const overviewPage = document.getElementById('overview-page');
+            const detailPages = document.querySelectorAll('.page-content:not(#overview-page)');
+            const overviewCards = document.querySelectorAll('.mindmap-card-overview');
+            const detailCards = document.querySelectorAll('.mindmap-card-detail');
+            const backButton = document.getElementById('back-to-overview');
+
+            // Function to show a specific page and hide others
+            function showPage(pageId) {
+                overviewPage.style.display = 'none';
+                detailPages.forEach(page => {
+                    page.style.display = 'none';
+                });
+
+                document.getElementById(pageId).style.display = 'block';
+
+                // Show/hide back button based on current page
+                if (pageId === 'overview-page') {
+                    backButton.classList.add('hidden');
+                } else {
+                    backButton.classList.remove('hidden');
+                }
+
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
+
+            // Event listener for overview cards (navigate to detail pages)
+            overviewCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const targetPageId = this.dataset.targetPage;
+                    showPage(targetPageId);
+                });
+            });
+
+            // Event listener for back button
+            backButton.addEventListener('click', function() {
+                showPage('overview-page');
+                // Collapse all detail cards when returning to overview
+                detailCards.forEach(card => {
+                    card.classList.remove('active');
+                    const content = card.querySelector('.card-detail-content');
+                    if (content) {
+                        content.classList.remove('open');
+                        content.style.maxHeight = '0';
+                    }
+                });
+            });
+
+            // Event listener for detail cards (expand/collapse content)
+            detailCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const content = this.querySelector('.card-detail-content');
+                    if (content) { // Ensure content exists
+                        this.classList.toggle('active'); // Toggle 'active' class on the card itself
+
+                        if (content.classList.contains('open')) {
+                            content.classList.remove('open');
+                            content.style.maxHeight = '0'; // Collapse
+                        } else {
+                            content.classList.add('open');
+                            content.style.maxHeight = content.scrollHeight + 'px'; // Expand to content height
+                        }
+                    }
+                });
+            });
+
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Initialize the overview page as active on load
+            showPage('overview-page');
+        });
+    </script>
+
+</body>
+</html>
